@@ -4,3 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+packed_simd_2 = { version = "0.3", optional = true }
+
+[features]
+simd = ["packed_simd_2"]

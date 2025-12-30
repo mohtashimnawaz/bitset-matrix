@@ -2,6 +2,15 @@
 name = "bitset-matrix"
 version = "0.1.0"
 edition = "2024"
+authors = ["Mohtashim Nawaz"]
+description = "Space-efficient, row-major 2D bitset matrix with fast bitwise ops"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/your-username/bitset-matrix"
+homepage = "https://github.com/your-username/bitset-matrix"
+documentation = "https://docs.rs/bitset-matrix"
+keywords = ["bitset", "bit-matrix", "boolean", "simd", "matrix"]
+categories = ["data-structures", "algorithms"]
 
 [dependencies]
 

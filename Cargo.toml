@@ -4,10 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-packed_simd_2 = { version = "0.3", optional = true }
 
 [features]
-simd = ["packed_simd_2"]
+# `simd` is a feature toggle for future SIMD backends. Currently it uses
+# a scalar fallback implementation to ensure portability across toolchains.
+simd = []
 
 [dev-dependencies]
 criterion = "0.5"

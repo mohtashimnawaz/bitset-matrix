@@ -132,30 +132,44 @@ impl BitMatrix {
 
     /// Fast in-place row-wise AND: `dst_row` &= `src_row`.
     pub fn row_and_assign(&mut self, dst_row: usize, src_row: usize) {
-        let dst = self.row_words_mut(dst_row);
-        let src = self.row_words(src_row);
-        for i in 0..self.words_per_row { dst[i] &= src[i]; }
-        // mask last word in that row
+        let w = self.words_per_row;
         let mask = self.last_word_mask();
-        dst[self.words_per_row - 1] &= mask;
+        let dst_start = dst_row * w;
+        let src_start = src_row * w;
+        for i in 0..w {
+            let dst_i = dst_start + i;
+            let src_i = src_start + i;
+            self.data[dst_i] &= self.data[src_i];
+        }
+        self.data[dst_start + w - 1] &= mask;
     }
 
     /// Fast in-place row-wise OR: `dst_row` |= `src_row`.
     pub fn row_or_assign(&mut self, dst_row: usize, src_row: usize) {
-        let dst = self.row_words_mut(dst_row);
-        let src = self.row_words(src_row);
-        for i in 0..self.words_per_row { dst[i] |= src[i]; }
+        let w = self.words_per_row;
         let mask = self.last_word_mask();
-        dst[self.words_per_row - 1] &= mask;
+        let dst_start = dst_row * w;
+        let src_start = src_row * w;
+        for i in 0..w {
+            let dst_i = dst_start + i;
+            let src_i = src_start + i;
+            self.data[dst_i] |= self.data[src_i];
+        }
+        self.data[dst_start + w - 1] &= mask;
     }
 
     /// Fast in-place row-wise XOR: `dst_row` ^= `src_row`.
     pub fn row_xor_assign(&mut self, dst_row: usize, src_row: usize) {
-        let dst = self.row_words_mut(dst_row);
-        let src = self.row_words(src_row);
-        for i in 0..self.words_per_row { dst[i] ^= src[i]; }
+        let w = self.words_per_row;
         let mask = self.last_word_mask();
-        dst[self.words_per_row - 1] &= mask;
+        let dst_start = dst_row * w;
+        let src_start = src_row * w;
+        for i in 0..w {
+            let dst_i = dst_start + i;
+            let src_i = src_start + i;
+            self.data[dst_i] ^= self.data[src_i];
+        }
+        self.data[dst_start + w - 1] &= mask;
     }
 
     /// Get a column as a Vec<bool> (col-wise access is slower).
@@ -207,7 +221,7 @@ mod tests {
         a.row_and_assign(0, 0); // still ok
 
         // test matrix and/or/xor
-        let mut c = a.bitand(&b);
+        let c = a.bitand(&b);
         assert!(c.get(0, 1));
         assert!(!c.get(0, 2));
 

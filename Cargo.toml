@@ -8,3 +8,8 @@ packed_simd_2 = { version = "0.3", optional = true }
 
 [features]
 simd = ["packed_simd_2"]
+
+[dev-dependencies]
+criterion = "0.5"
+quickcheck = "1.0"
+rand = "0.8"

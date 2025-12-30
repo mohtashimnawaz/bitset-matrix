@@ -1,0 +1,30 @@
+target/
+Cargo.lock
+*.rs.bk
+*.log
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.tmp
+.env
+node_modules/
+dist/
+build/
+
+# Ignore coverage reports
+coverage/
+coverage-final.json
+lcov-report/
+
+# Ignore generated files
+*.gen.rs
+*.d.ts
+*.js.map
+*.css.map
+
+# Ignore OS-specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.lnk
